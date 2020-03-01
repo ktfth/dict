@@ -1,9 +1,15 @@
 'use strict';
 
+const fs = require('fs');
 const root = this;
 const assert = require('assert');
 
 let _dict = ['maçã', 'barraca', 'martelo'];
+
+const dictionary = root.dictionary = fs
+                                       .readFileSync('./pt_BR.txt')
+                                       .toString()
+                                       .split('\n');
 
 const similarity = root.similarity = function similarityHandler(wl, wr) {
   let out = 0;
