@@ -28,9 +28,9 @@ const similarities = root.similarities = function similaritiesHandler(w, d) {
   out = d.filter(v => {
     let s = similarity(v, w);
     let balance = Math.max(v.length, w.length) - Math.min(v.length, w.length);
-    return s > 0 && balance < s;
+    return s === v.length && balance < s;
   });
   return out;
 };
-assert.deepEqual(similarities('maca', _dict), ['maçã', 'barraca']);
-assert.deepEqual(similarities('barra', _dict), ['barraca']);
+assert.deepEqual(similarities('maçã', _dict), ['maçã']);
+assert.deepEqual(similarities('barraca', _dict), ['barraca']);
