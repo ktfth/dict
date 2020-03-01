@@ -35,6 +35,15 @@ const proximity = root.proximity = function proximityHandler(w, d) {
 assert.deepEqual(proximity('maçã', ['maçã']), knn
                                                 .neighbors(toObject('maçã'),
                                                           [toObject('maçã')]));
+const proximities = root.proximities = function proximitiesHandler(w, d) {
+  let out = [];
+  let cache = proximity(w, d);
+  out = d.filter((v, i) => {
+    return cache[i] === 0;
+  });
+  return out;
+};
+assert.deepEqual(proximities('maçã', ['maçã', 'barraca']), ['maçã']);
 
 const similarity = root.similarity = function similarityHandler(wl, wr) {
   let out = 0;
