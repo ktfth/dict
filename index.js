@@ -1,7 +1,9 @@
 'use strict';
 
-const fs = require('fs');
 const root = this;
+
+const fs = require('fs');
+const knn = require('knn-rank');
 const assert = require('assert');
 
 let _dict = ['maçã', 'barraca', 'martelo'];
@@ -10,6 +12,29 @@ const dictionary = root.dictionary = fs
                                        .readFileSync('./pt_BR.txt')
                                        .toString()
                                        .split('\n');
+
+const toObject = root.toObject = function toObjectHandler(w) {
+  let out = {};
+  w.split('').map(v => {
+    let keys = Object.keys(out);
+    if (keys.indexOf(v) === -1) {
+      out[v] = 1;
+    } if (keys.indexOf(v) > -1) {
+      out[v] += 1;
+    }
+  });
+  return out;
+};
+assert.deepEqual(toObject('maçã'), {'m': 1, 'a': 1, 'ç': 1, 'ã': 1});
+
+const proximity = root.proximity = function proximityHandler(w, d) {
+  let out = [];
+  out = knn.neighbors(toObject(w), d.map(v => toObject(v)));
+  return out;
+};
+assert.deepEqual(proximity('maçã', ['maçã']), knn
+                                                .neighbors(toObject('maçã'),
+                                                          [toObject('maçã')]));
 
 const similarity = root.similarity = function similarityHandler(wl, wr) {
   let out = 0;
