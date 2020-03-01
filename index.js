@@ -3,6 +3,8 @@
 const root = this;
 const assert = require('assert');
 
+let _dict = ['maçã', 'barraca', 'martelo'];
+
 const similarity = root.similarity = function similarityHandler(wl, wr) {
   let out = 0;
   wl.split('').map(v => {
@@ -20,8 +22,9 @@ const similarities = root.similarities = function similaritiesHandler(w, d) {
   out = d.filter(v => {
     let s = similarity(v, w);
     let balance = Math.max(v.length, w.length) - Math.min(v.length, w.length);
-    return s > 0 && balance === 0;
+    return s > 0 && balance < s;
   });
   return out;
 };
-assert.deepEqual(similarities('maca', ['maçã', 'barraca', 'martelo']), ['maçã']);
+assert.deepEqual(similarities('maca', _dict), ['maçã', 'barraca']);
+assert.deepEqual(similarities('barra', _dict), ['barraca']);
