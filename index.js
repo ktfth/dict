@@ -68,3 +68,5 @@ const similarities = root.similarities = function similaritiesHandler(w, d) {
 };
 assert.deepEqual(similarities('maçã', _dict), ['maçã']);
 assert.deepEqual(similarities('barraca', _dict), ['barraca']);
+
+knn.extend(root, knn);
