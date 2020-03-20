@@ -69,12 +69,12 @@ const similarities = root.similarities = function similaritiesHandler(w, d) {
 assert.deepEqual(similarities('maçã', _dict), ['maçã']);
 assert.deepEqual(similarities('barraca', _dict), ['barraca']);
 
-const ratio = root.ratio = function rationHandler(w1, w2) {
+const ratio = root.ratio = function rationHandler(w1, w2, sep='') {
   let out = null;
   if (typeof(w1) !== 'string' && typeof(w2) !== 'string') {
     return out;
   }
-  let SEP = '';
+  const SEP = sep;
   let tokens1 = w1.split(SEP);
   let tokens2 = w2.split(SEP);
   let tokensLengthMax = Math.max(tokens1.length, tokens2.length);
@@ -86,7 +86,5 @@ const ratio = root.ratio = function rationHandler(w1, w2) {
 assert.ok(ratio('quero maçã', 'quero uma maçã') > 0);
 assert.ok(ratio('quero uma maçã', 'quero uma maçã'), 100);
 assert.equal(ratio(10, 10), null);
-
-console.log(ratio('quero maçã', 'quero uma maçã'));
 
 knn.extend(root, knn);
