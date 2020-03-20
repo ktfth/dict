@@ -87,4 +87,11 @@ assert.ok(ratio('quero maçã', 'quero uma maçã') > 0);
 assert.ok(ratio('quero uma maçã', 'quero uma maçã'), 100);
 assert.equal(ratio(10, 10), null);
 
+const ratios = root.ratios = function ratiosHandler(w, v) {
+  let out = [];
+  out = v.map(c => ratio(w, c));
+  return out;
+}
+assert.deepEqual(ratios('quero maçã', ['quero uma maçã', 'quero uma banana']), [ratio('quero maçã', 'quero uma maçã'), ratio('quero maçã', 'quero uma banana')]);
+
 knn.extend(root, knn);
