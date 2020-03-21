@@ -93,5 +93,6 @@ const ratios = root.ratios = function ratiosHandler(w, v) {
   return out;
 }
 assert.deepEqual(ratios('quero maçã', ['quero uma maçã', 'quero uma banana']), [ratio('quero maçã', 'quero uma maçã'), ratio('quero maçã', 'quero uma banana')]);
+assert.ok(ratios('maçã', _dict).length > 0);
 
 knn.extend(root, knn);
